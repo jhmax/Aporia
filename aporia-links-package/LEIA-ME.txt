@@ -1,0 +1,32 @@
+APORIA — FICHEIRO DE ASSOCIACAO ANDROID APP LINKS
+
+Estrutura incluída:
+  aporia-links/
+    .well-known/
+      assetlinks.json
+
+IMPORTANTE — NAO PUBLICAR AINDA
+O assetlinks.json está em JSON válido e já contém o package name:
+com.entrelinhas.entrelinhas
+
+Falta substituir o valor:
+SUBSTITUIR_PELA_SHA256_DA_ASSINATURA_RELEASE
+
+pela impressão digital SHA-256 REAL do certificado que assina o APK de release.
+Sem essa impressão digital correta, o Android não verificará o domínio e os App Links
+não abrirão diretamente a aplicação.
+
+Como obter a impressão digital no Mac:
+1. Na raiz do projeto Flutter:
+   cd android
+   ./gradlew signingReport
+2. Copiar SHA-256 da variante release.
+3. Substituir o texto de exemplo no ficheiro:
+   aporia-links/.well-known/assetlinks.json
+
+Depois de preenchido, publicar o CONTEUDO da pasta aporia-links no alojamento HTTPS.
+O ficheiro tem de ficar acessível em:
+https://O-TEU-DOMINIO/.well-known/assetlinks.json
+
+A configuração do AndroidManifest.xml tem de usar exatamente o mesmo domínio.
+Este pacote não contém nem altera o AndroidManifest.xml.

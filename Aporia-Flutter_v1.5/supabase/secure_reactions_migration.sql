@@ -1,0 +1,6 @@
+-- DEPRECATED — DO NOT RUN THIS HISTORICAL FILE.
+-- For an existing Entrelinhas Supabase project, use:
+--   migration_daily_post_two_reactions.sql
+-- For a brand-new Supabase project only, use:
+--   entrelinhas_schema.sql
+-- Do not run the initial schema against an existing database.

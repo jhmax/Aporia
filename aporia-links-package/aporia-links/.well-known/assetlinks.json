@@ -1,0 +1,13 @@
+
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.entrelinhas.entrelinhas",
+      "sha256_cert_fingerprints": [
+        "AF:D6:06:C9:82:8E:DB:4B:43:8D:70:B7:B4:99:45:65:7D:EC:71:DE:0C:71:27:0C:96:12:1A:B8:38:9A:32:A5"
+      ]
+    }
+  }
+]

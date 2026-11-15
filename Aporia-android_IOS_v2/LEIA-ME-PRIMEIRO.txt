@@ -1,0 +1,54 @@
+APORIA v1.9.0 — DIÁLOGOS PRIVADOS
+PACOTE ÚNICO PARA APLICAR SOBRE O PROJETO EXISTENTE
+
+IMPORTANTE
+Este ZIP NÃO é o projeto Flutter completo. É um pacote de atualização com os ficheiros que mudam e uma cópia dos ficheiros originais que enviaste.
+Não substitui android/, assets/, ios/, web/ nem o restante projeto.
+
+O QUE SERÁ ATUALIZADO NA RAIZ DO PROJETO
+- lib/main.dart                        (novo código Flutter com Diálogos)
+- pubspec.yaml                         (versão 1.9.0+10; sem dependências novas)
+- CHANGELOG.md                         (entrada dos Diálogos)
+- supabase/dialogues_migration.sql     (nova migração)
+- supabase/verify_dialogues.sql        (consulta de verificação)
+- test/dialogues_patch_test.dart       (teste adicional, nome novo para não substituir testes existentes)
+
+A pasta _BACKUP_ORIGINAL contém os quatro ficheiros originais da cópia de segurança que enviaste. Não é utilizada pela app.
+
+APLICAÇÃO SIMPLES NO MAC
+1. Faz uma cópia integral da pasta do projeto Aporia antes de continuar.
+2. Extrai este ZIP para a pasta Downloads.
+3. Abre o Terminal na raiz do projeto Aporia-Flutter-v1.9 (a pasta que contém pubspec.yaml).
+4. Confirma a pasta com: ls pubspec.yaml
+5. Executa este comando, ajustando o nome/caminho do ZIP se necessário:
+   unzip -o ~/Downloads/Aporia-v1.9.0-Dialogues-ALL-IN-ONE.zip -d .
+6. O comando coloca os ficheiros nas pastas certas. Não substitui AndroidManifest.xml, pubspec.lock, assets ou código nativo.
+7. Depois executa:
+   flutter pub get
+   flutter analyze
+   flutter test
+
+SUPABASE — NÃO SALTAR
+Antes de usar a funcionalidade, aplica supabase/dialogues_migration.sql no SQL Editor de uma instância de TESTE/STAGING, depois executa supabase/verify_dialogues.sql.
+Não voltes a executar o esquema inicial da Aporia nem migrações antigas. Esta migração pressupõe que public.profiles e public.reflections já existem.
+Só depois de verificar em staging, aplica a migração na base de dados de produção.
+
+COMPILAÇÃO ANDROID
+Se as validações terminarem sem erros, compila com as credenciais publicáveis já usadas no teu projeto:
+flutter build apk --release \
+  --dart-define=SUPABASE_URL="O_TEU_SUPABASE_URL" \
+  --dart-define=SUPABASE_PUBLISHABLE_KEY="A_TUA_CHAVE_PUBLICAVEL" \
+  --dart-define=APORIA_EMAIL_REDIRECT_TO="https://aporia-links.pages.dev/auth/callback"
+Nunca incluas service_role, sb_secret, passwords ou chaves privadas no APK.
+
+NOTAS FUNCIONAIS
+- Um convite é associado a uma reflexão e contém mensagem que o destinatário lê antes de aceitar.
+- Um convite por remetente e reflexão; uma nova reflexão permite um novo convite à mesma pessoa.
+- Ao aceitar, começa um diálogo de 24 horas.
+- Nas últimas seis horas, cada pessoa pode pedir extensão; só prolonga mais 24 horas se ambos pedirem antes do fim.
+- Mensagens só de texto; links e anexos são rejeitados.
+- Recusar, denunciar, bloquear, desbloquear e desligar convites estão disponíveis.
+- O código faz consultas periódicas; esta versão não inclui notificações push.
+
+LIMITES DE VALIDAÇÃO
+O código Dart e SQL foram preparados, mas não foram compilados/testados contra o teu SDK Flutter nem executados na tua instância Supabase neste ambiente. É obrigatório executar flutter analyze/test e aplicar a migração primeiro em staging.
